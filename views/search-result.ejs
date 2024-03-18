@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="supp/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="supp/swiper/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="supp/jquery-nice-select/css/nice-select.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="lds-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        
+        <!-- Header -->
+        <%- include('partials/header') %>
+
+        <!-- Sidebar -->
+        <%- include('partials/sidebar') %>
+        
+        <!-- Navbar -->
+        <%- include('partials/navbar') %>
+
+        <!-- Main Content -->
+        <div class="content-body">
+            <div class="container">
+                <div class="row page-titles">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">Search Results</li>
+                    </ol>
+                </div>
+                
+                <div class="row">
+                    <% recipe.forEach(function(r) { %>
+                        <div class="col-xl-3 col-xxl-4 col-sm-6">
+                            <div class="card dishe-bx b-hover style-1">
+                                <div class="card-body pb-0 pt-3">
+                                    <div class="text-center mb-2">
+                                        <a href="recipe-detail/<%= r._id %>">
+                                            <!-- Use the first image from the recipe's Images array -->
+                                            <img src="<%= r.Images.length > 0 ? r.Images[0] : 'path/to/default-image.jpg' %>" alt="<%= r.Name %>" class="img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="border-bottom pb-3">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <a href="recipe-detail/<%= r._id %>"><h4><%= r.Name %></h4></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer border-0 pt-2">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p><%= r.Description.substring(0, 100) %>...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+
+                <!-- Pagination, adjust as needed -->
+                <div class="d-flex align-items-center justify-content-xl-between justify-content-center flex-wrap pagination-bx">
+                    <!-- Pagination Placeholder -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <%- include('partials/footer') %>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./supp/global/global.min.js"></script>
+    <script src="./supp/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="./supp/chart.js/Chart.bundle.min.js"></script>
+    <script src="./supp/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="./supp/swiper/js/swiper-bundle.min.js"></script>
+    <script src="./js/dlabnav-init.js"></script>
+    <script src="./js/custom.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".plus").click(function(){
+                $(this).toggleClass("active");
+            });
+            $(".c-heart").click(function(){
+                $(this).toggleClass("active");
+            });
+        });
+    </script>
+</body>
+</html>

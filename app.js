@@ -97,49 +97,6 @@ app.post('/sign_in', passport.authenticate('local', {
 
 // Home
 app.get("/", async (req, res) => {
-    try {
-      if (req.user && req.user.email) {
-        const user = await User.findOne({ email: req.user.email });
-        const username = user.username;
-
-        const products = await Product.find();
-        
-        const recipes = await Recipe.find();
-
-        res.render("home", { username: username, user: user, products: products, recipes: recipes });
-        
-      } else {
-        res.redirect("/sign_in");
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Internal server error");
-    }
-});
-
-// Menu
-app.get('/menu', async (req, res) => {
-    try {
-      if (req.user && req.user.email) {
-        const user = await User.findOne({ email: req.user.email });
-        const username = user.username;
-  
-        const products = await Product.find();
-        const orders = req.user.order;
-  
-        res.render("menu", { username: username, user: user, products: products, orders: orders });
-        
-      } else {
-        res.redirect("/sign_in");
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Internal server error");
-    }
-  });
-
-// Burger
-app.get('/burger', async (req, res) => {
   try {
     if (req.user && req.user.email) {
       const user = await User.findOne({ email: req.user.email });
@@ -148,7 +105,9 @@ app.get('/burger', async (req, res) => {
       const products = await Product.find();
       const orders = req.user.order;
 
-      res.render("burger", { username: username, user: user, products: products, orders: orders });
+      const recipe = await Recipe.findOne(); 
+
+      res.render("home", { username: username, user: user, products: products, orders: orders, recipe: recipe });
       
     } else {
       res.redirect("/sign_in");
@@ -158,8 +117,9 @@ app.get('/burger', async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
-// Fish-burger
-app.get('/fish-burger', async (req, res) => {
+
+// Menu
+app.get("/menu", async (req, res) => {
   try {
     if (req.user && req.user.email) {
       const user = await User.findOne({ email: req.user.email });
@@ -168,7 +128,54 @@ app.get('/fish-burger', async (req, res) => {
       const products = await Product.find();
       const orders = req.user.order;
 
-      res.render("fish-burger", { username: username, user: user, products: products, orders: orders });
+      const recipe = await Recipe.findOne(); 
+
+      res.render("menu", { username: username, user: user, products: products, orders: orders, recipe: recipe });
+      
+    } else {
+      res.redirect("/sign_in");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+// Search-result
+app.get("/search-result", async (req, res) => {
+  try {
+    if (req.user && req.user.email) {
+      const user = await User.findOne({ email: req.user.email });
+      const username = user.username;
+
+      const products = await Product.find();
+      const orders = req.user.order;
+
+      const recipe = await Recipe.findOne(); 
+
+      res.render("search-result", { username: username, user: user, products: products, orders: orders, recipe: recipe });
+      
+    } else {
+      res.redirect("/sign_in");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+// recipe-detail
+app.get("/recipe-detail", async (req, res) => {
+  try {
+    if (req.user && req.user.email) {
+      const user = await User.findOne({ email: req.user.email });
+      const username = user.username;
+
+      const products = await Product.find();
+      const orders = req.user.order;
+
+      const recipe = await Recipe.findOne(); 
+
+      res.render("recipe-detail", { username: username, user: user, products: products, orders: orders, recipe: recipe });
       
     } else {
       res.redirect("/sign_in");
@@ -205,18 +212,86 @@ app.listen(3000, function() {
 });
 
 // Route for Recipe Details
-app.get('/recipe/:id', async (req, res) => {
+app.get('/recipe-detail/:id', async (req, res) => {
   try {
-    const recipeId = req.params.id;
-    const recipe = await Recipe.findById(recipeId);
-    
+    // Fetch the recipe by ID
+    const recipe = await Recipe.findById(req.params.id);
+
+    // If no recipe is found, redirect or show a not found message
     if (!recipe) {
       return res.status(404).send('Recipe not found');
     }
 
-    res.render("recipe-details", { recipe: recipe });
+    // Render the recipe-detail page with the fetched recipe
+    res.render("recipe-detail", { recipe: recipe });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal server error");
   }
 });
+
+app.get('/test', async (req, res) => {
+  try {
+    if (req.user && req.user.email) {
+      const user = await User.findOne({ email: req.user.email });
+      const username = user.username;
+
+      const products = await Product.find();
+      const orders = req.user.order;
+
+      // Assuming you want to pass a specific recipe or a dummy recipe for testing purposes
+      const recipe = await Recipe.findOne(); // Fetches the first recipe found for demonstration
+
+      // Ensure that 'recipe' is included here
+      res.render("test", { username: username, user: user, products: products, orders: orders, recipe: recipe });
+      
+    } else {
+      res.redirect("/sign_in");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get('/search', async (req, res) => {
+  try {
+      // Your search logic here...
+      let recipe = await searchRecipes(/* search parameters */);
+
+      // Ensure 'recipe' is an array
+      if (!Array.isArray(recipe)) {
+          recipe = [recipe]; // Convert to an array if 'recipe' is not already an array
+      }
+
+      res.render('search-result', { recipe });
+  } catch (err) {
+      console.error(err);
+      res.status(500).send("Internal server error");
+  }
+});
+
+
+
+async function searchRecipes(dishName, ingredient, cookingProcess) {
+  let queryConditions = [];
+
+  if (dishName) {
+      queryConditions.push({ Name: { $regex: new RegExp(dishName, 'i') } });
+  }
+
+  if (ingredient) {
+      queryConditions.push({ 'RecipeIngredientParts': { $regex: new RegExp(ingredient, 'i') } });
+  }
+
+  if (cookingProcess) {
+      queryConditions.push({ 'RecipeInstructions': { $regex: new RegExp(cookingProcess, 'i') } });
+  }
+
+  let query = {};
+  if (queryConditions.length > 0) {
+      query = { $or: queryConditions };
+  }
+
+  return Recipe.find(query);
+}

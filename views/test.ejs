@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= recipe.Name %></title>
+</head>
+<body>
+    <h1><%= recipe.Name %></h1>
+    <p><strong>Author:</strong> <%= recipe.AuthorName %></p>
+    <p><strong>Description:</strong> <%= recipe.Description %></p>
+    <p><strong>Cook Time:</strong> <%= recipe.CookTime %></p>
+    <p><strong>Prep Time:</strong> <%= recipe.PrepTime %></p>
+    <p><strong>Total Time:</strong> <%= recipe.TotalTime %></p>
+
+    <h3>Images</h3>
+    <% recipe.Images.forEach(function(image) { %>
+        <img src="<%= image %>" alt="Recipe Image">
+    <% }); %>
+
+    <h3>Ingredients</h3>
+    <ul>
+        <% for(let i = 0; i < recipe.RecipeIngredientParts.length; i++) { %>
+            <li><%= recipe.RecipeIngredientQuantities[i] %> <%= recipe.RecipeIngredientParts[i] %></li>
+        <% } %>
+    </ul>
+
+    <h3>Instructions</h3>
+    <ol>
+        <% recipe.RecipeInstructions.forEach(function(instruction) { %>
+            <li><%= instruction %></li>
+        <% }); %>
+    </ol>
+</body>
+</html>
