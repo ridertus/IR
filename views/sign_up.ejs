@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Sign up</title>
+
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+    <link href="./supp/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="./supp/swiper/css/swiper-bundle.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+<body class="vh-100">
+    <div class="authincation ">
+        <div class="container">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+									<div class="text-center mb-3">
+										<img src="/images/logo-full.png" alt="">
+									</div>
+                                    <h4 class="text-center mb-4">Sign up your account</h4>
+                                    <form action="/sign_up" method="post">
+                                        <div class="mb-3">
+                                            <label class="mb-1" for="username"><strong>Username</strong></label>
+                                            <input type="text" class="form-control" placeholder="username" id="username" name="username">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="mb-1" for="email"><strong>Email</strong></label>
+                                            <input type="email" class="form-control" placeholder="hello@example.com" id="email" name="email">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="mb-1" for="password"><strong>Password</strong></label>
+                                            <input type="password" class="form-control" placeholder="password" id="password" name="password">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="mb-1" for="Interested"><strong>What food you Interested?</strong></label>
+                                            <input type="Interested" class="form-control" placeholder="ex. pancake" id="Interested" name="Interested">
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                                        </div>
+                                    </form>
+                                    <div class="new-account mt-3">
+                                        <p>Already have an account?<a class="text-primary" href="sign_in"> Sign in</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./supp/global/global.min.js"></script>
+    <script src="./supp/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="./js/dlabnav-init.js"></script>
+
+</body>
+</html>
