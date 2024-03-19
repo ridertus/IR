@@ -271,8 +271,6 @@ app.get('/search', async (req, res) => {
   }
 });
 
-
-
 async function searchRecipes(dishName, ingredient, cookingProcess) {
   let queryConditions = [];
 

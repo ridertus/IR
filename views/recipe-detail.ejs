@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><"%=  %"></title>
+    <title><%= recipe.Name %></title>
     <link rel="stylesheet" href="supp/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="supp/swiper/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="supp/jquery-nice-select/css/nice-select.css">
@@ -32,12 +32,7 @@
     <!-- Main Content -->
     <div class="content-body">
         <div class="container">
-            <div class="row page-titles">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a href="burger">Burger</a></li>
-                    <li class="breadcrumb-item"><a href="recipe-detail.ejs">Fish burger</a></li>
-                </ol>
-            </div>
+            
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -47,31 +42,63 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content" id="nav-tabContent">
                                       <div class="tab-pane fade show active" id="nav-first" role="tabpanel" aria-labelledby="nav-first-tab">
-                                        <img class="img-fluid rounded" src="<%= products[1].image %>" alt="">
+                                        <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                       </div>
                                       <div class="tab-pane fade" id="nav-second" role="tabpanel" aria-labelledby="nav-second-tab">
-                                        <img class="img-fluid rounded" src="<%= products[1].image %>" alt="">
+                                        <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                       </div>
                                       <div class="tab-pane fade" id="nav-third" role="tabpanel" aria-labelledby="nav-third-tab">
-                                         <img class="img-fluid rounded" src="<%= products[1].image %>" alt="">
+                                        <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                       </div>
                                       <div class="tab-pane fade" id="nav-for" role="tabpanel" aria-labelledby="nav-for-tab">
-                                         <img class="img-fluid rounded" src="<%= products[1].image %>" alt="">
+                                        <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                       </div>
                                     </div>
                                     <nav>
                                       <div class="product-detail-tab nav nav-tabs" id="nav-tab" role="tablist">
                                         <button class="nav-link active" id="nav-first-tab" data-bs-toggle="tab" data-bs-target="#nav-first" type="button" role="tab" aria-controls="nav-first" aria-selected="true">
-                                            <img class="img-fluid" src="<%= products[1].image %>" alt="" width="50">
+                                            <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                         </button>
                                         <button class="nav-link" id="nav-second-tab" data-bs-toggle="tab" data-bs-target="#nav-second" type="button" role="tab" aria-controls="nav-second" aria-selected="false">
-                                            <img class="img-fluid" src="<%= products[1].image %>" alt="" width="50">
+                                            <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                         </button>
                                         <button class="nav-link" id="nav-third-tab" data-bs-toggle="tab" data-bs-target="#nav-third" type="button" role="tab" aria-controls="nav-third" aria-selected="false">
-                                            <img class="img-fluid" src="<%= products[1].image %>" alt="" width="50">
+                                            <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                         </button>
                                         <button class="nav-link" id="nav-for-tab" data-bs-toggle="tab" data-bs-target="#nav-for" type="button" role="tab" aria-controls="nav-for" aria-selected="false">
-                                            <img class="img-fluid" src="<%= products[1].image %>" alt="" width="50">
+                                            <img class="img-fluid rounded" 
+                                        <% if (recipe.Images.length > 0) { %>
+                                            <img src="<%= recipe.Images[0] %>" alt="Recipe Image">
+                                        <% } %>
+                                        >
                                         </button>
                                       </div>
                                     </nav>
@@ -81,7 +108,7 @@
                                     <div class="product-detail-content">
                                         <!--Product details-->
                                         <div class="new-arrival-content pr">
-                                            <h4>Fish burger</h4>
+                                            <h4><%= recipe.Name %></h4>
                                             <div class="comment-review star-rating">
                                                 <ul>
                                                     <li><i class="fa fa-star"></i></li>
@@ -92,18 +119,21 @@
                                                 </ul>
                                                 <span class="review-text">(9999 reviews) </span>
                                             </div>
-                                             
-                                            <p>Availability: <span class="item"> In stock <i
-                                                        class="fa fa-shopping-basket"></i></span>
-                                            </p>
-                                            <p class="text-content">Fish burgers! If you're looking for a delicious and healthy meal that's packed with flavor, look no further than this seafood delight.
-
-                                                With its crispy and flaky fish fillet, tangy tartar sauce, and toasted bun, a fish burger is a satisfying and guilt-free alternative to traditional burgers. And let's not forget about the delicious sides like fries and coleslaw that perfectly complement the flavors of the fish burger.
+            
+                                            <p class="text-content">
+                                                <h3>Ingredients</h3>
+                                                <ul>
+                                                    <% for(let i = 0; i < recipe.RecipeIngredientParts.length; i++) { %>
+                                                        <li>- <%= recipe.RecipeIngredientQuantities[i] %> <%= recipe.RecipeIngredientParts[i] %></li>
+                                                    <% } %>
+                                                </ul> fresh and flavorful taste of fish burgers? Bite into a delicious and satisfying fish burger today and taste the difference!</p>
                                                 
-                                                Whether you're craving a quick lunch on the go, a tasty dinner at home, or a satisfying meal after a workout, fish burgers are the perfect choice. They're widely available at your favorite fast food chains, seafood restaurants, and diners, making them easily accessible whenever and wherever you need them.
-                                                
-                                                So why settle for a greasy and unhealthy burger when you can indulge in the fresh and flavorful taste of fish burgers? Bite into a delicious and satisfying fish burger today and taste the difference!</p>
-                                                
+                                                <h3>Instructions</h3>
+                                                <ul>
+                                                    <% recipe.RecipeInstructions.forEach(function(instruction) { %>
+                                                        <li>- <%= instruction %></li>
+                                                    <% }); %>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
