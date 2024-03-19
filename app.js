@@ -6,6 +6,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const flash = require('connect-flash');
+const axios = require('axios')
 
 const { authentication } = require('./control/authen');
 
@@ -105,9 +106,13 @@ app.get("/", async (req, res) => {
       const products = await Product.find();
       const orders = req.user.order;
 
-      const recipe = await Recipe.findOne(); 
-
-      res.render("home", { username: username, user: user, products: products, orders: orders, recipe: recipe });
+      const recipe = await Recipe.findOne()
+      console.log( user.Interested.join(","));
+      const resq = await axios.get("http://localhost:5000/search?query=" + user.Interested.join(","));
+      const recipes = resq.data.results_df;
+      const ranReq = await axios.get("http://localhost:5000/search?query=")
+      const randRecipes = ranReq.data.results_df;
+      res.render("home", { username: username, user: user, products: products, orders: orders, recipes: recipes,  randRecipes: randRecipes});
       
     } else {
       res.redirect("/sign_in");
