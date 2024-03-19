@@ -295,3 +295,13 @@ async function searchRecipes(dishName, ingredient, cookingProcess) {
 
   return Recipe.find(query);
 }
+
+app.get('/recipes', async (req, res) => {
+  try {
+    const recipes = await Recipe.find({}); 
+    res.render('recipes-list', { recipes: recipes });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal server error");
+  }
+});
